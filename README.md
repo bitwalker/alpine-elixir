@@ -8,23 +8,23 @@ left as an exercise for the reader.
 ## Usage
 
 NOTE: This image sets up a `default` user, with home set to `/opt/app` and owned by that user. The working directory
-is also set to `$HOME`. It is highly recommended that you add a `USER default` instruction to the end of your 
+is also set to `$HOME`. It is highly recommended that you add a `USER default` instruction to the end of your
 Dockerfile so that your app runs in a non-elevated context.
 
 To boot straight to a prompt in the image:
 
 ```
 $ docker run --rm -it --user=root bitwalker/alpine-elixir iex
-Erlang/OTP 19 [erts-8.0.1] [source] [64-bit] [async-threads:10] [hipe] [kernel-poll:false]
+Erlang/OTP 19 [erts-8.2.1] [source] [64-bit] [async-threads:10] [hipe] [kernel-poll:false]
 
-Interactive Elixir (1.4.0) - press Ctrl+C to exit (type h() ENTER for help)
+Interactive Elixir (1.4.1) - press Ctrl+C to exit (type h() ENTER for help)
 iex(1)>
 ```
 
 Extending for your own application:
 
 ```dockerfile
-FROM bitwalker/alpine-elixir:1.4.0
+FROM bitwalker/alpine-elixir:1.4.1
 
 # Set exposed ports
 EXPOSE 5000

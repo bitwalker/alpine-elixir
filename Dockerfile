@@ -6,7 +6,7 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2017-01-04
+ENV REFRESHED_AT=2017-02-02
 
 WORKDIR /tmp/elixir-build
 
@@ -17,7 +17,7 @@ RUN \
       git && \
     git clone https://github.com/elixir-lang/elixir && \
     cd elixir && \
-    git checkout v1.4.0 && \
+    git checkout v1.4.1 && \
     make && make install && \
     mix local.hex --force && \
     mix local.rebar --force && \
