@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-erlang:latest
+FROM bitwalker/alpine-erlang:20.0
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
