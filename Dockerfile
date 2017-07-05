@@ -12,6 +12,7 @@ ENV REFRESHED_AT=2017-06-28 \
 WORKDIR /tmp/elixir-build
 
 RUN \
+    apk --no-cache --update upgrade && \
     apk add --no-cache --update --virtual .elixir-build \
       make && \
     apk add --no-cache --update \
