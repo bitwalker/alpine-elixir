@@ -17,9 +17,8 @@ RUN \
       make && \
     apk add --no-cache --update \
       git && \
-    git clone https://github.com/elixir-lang/elixir && \
+    git clone https://github.com/elixir-lang/elixir --depth 1 --branch $ELIXIR_VERSION && \
     cd elixir && \
-    git checkout $ELIXIR_VERSION && \
     make && make install && \
     mix local.hex --force && \
     mix local.rebar --force && \
