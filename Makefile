@@ -13,8 +13,16 @@ test: ## Test the Docker image
 shell: ## Run an Elixir shell in the image
 	docker run --rm -it $(IMAGE_NAME):$(VERSION) iex
 
-build: ## Rebuild the Docker image
+sh: ## Run shell
+	docker run --rm -it $(IMAGE_NAME):$(VERSION) /bin/bash
+
+build: ## Build the Docker image
 	docker build --force-rm -t $(IMAGE_NAME):$(VERSION) -t $(IMAGE_NAME):latest .
+
+clean: ## Clean generated images
+	docker rmi --force $(IMAGE_NAME):$(VERSION) $(IMAGE_NAME):latest
+
+rebuild: clean build ## Rebuild
 
 release: build ## Rebuild and release the Docker image to Docker Hub
 	docker push $(IMAGE_NAME):$(VERSION)
