@@ -32,7 +32,7 @@ ENV PORT=5000
 
 ENV MIX_ENV=prod
 
-ADD yourapp.tar.gz ./
+COPY yourapp.tar.gz ./
 RUN tar -xzvf yourapp.tar.gz
 
 USER default
