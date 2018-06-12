@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-erlang:20.3.6
+FROM bitwalker/alpine-erlang:20.3.7
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
@@ -6,7 +6,7 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2018-05-08 \
+ENV REFRESHED_AT=2018-06-11 \
     ELIXIR_VERSION=v1.6.5
 
 WORKDIR /tmp/elixir-build
