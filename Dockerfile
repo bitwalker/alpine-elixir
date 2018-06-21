@@ -1,13 +1,13 @@
-FROM bitwalker/alpine-erlang:20.3.7
+FROM bitwalker/alpine-erlang:21.0
 
-MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
+LABEL maintainer="Paul Schoenfelder <paulschoenfelder@gmail.com>"
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2018-06-11 \
-    ELIXIR_VERSION=v1.6.5
+ENV REFRESHED_AT=2018-06-21 \
+    ELIXIR_VERSION=v1.6.6
 
 WORKDIR /tmp/elixir-build
 
