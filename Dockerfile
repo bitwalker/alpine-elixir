@@ -6,7 +6,7 @@ LABEL maintainer="Paul Schoenfelder <paulschoenfelder@gmail.com>"
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2018-06-21 \
+ENV REFRESHED_AT=2018-07-08 \
     ELIXIR_VERSION=v1.6.6
 
 WORKDIR /tmp/elixir-build
