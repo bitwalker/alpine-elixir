@@ -24,7 +24,7 @@ RUN \
     mix local.rebar --force && \
     cd $HOME && \
     rm -rf /tmp/elixir-build && \
-    apk del .elixir-build
+    apk del --no-cache .elixir-build
 
 WORKDIR ${HOME}
 
