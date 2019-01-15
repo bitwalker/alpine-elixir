@@ -24,7 +24,7 @@ iex(1)>
 Extending for your own application:
 
 ```dockerfile
-FROM bitwalker/alpine-elixir:1.7.4
+FROM bitwalker/alpine-elixir:1.8.0
 
 # Set exposed ports
 EXPOSE 5000
