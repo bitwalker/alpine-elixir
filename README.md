@@ -17,14 +17,14 @@ To boot straight to a prompt in the image:
 $ docker run --rm -it --user=root bitwalker/alpine-elixir iex
 Erlang/OTP 21 [erts-10.0] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:10] [hipe] [kernel-poll:false]
 
-Interactive Elixir (1.8.0) - press Ctrl+C to exit (type h() ENTER for help)
+Interactive Elixir (1.8.1) - press Ctrl+C to exit (type h() ENTER for help)
 iex(1)>
 ```
 
 Extending for your own application:
 
 ```dockerfile
-FROM bitwalker/alpine-elixir:1.8.0
+FROM bitwalker/alpine-elixir:1.8.1
 
 # Set exposed ports
 EXPOSE 5000
