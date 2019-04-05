@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-erlang:21.3.2
+FROM bitwalker/alpine-erlang:21.3.3
 
 LABEL maintainer="Paul Schoenfelder <paulschoenfelder@gmail.com>"
 
