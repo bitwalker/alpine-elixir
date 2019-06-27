@@ -1,13 +1,13 @@
-FROM bitwalker/alpine-erlang:22.0.1
+FROM bitwalker/alpine-erlang:22.0.4
 
-LABEL maintainer="Paul Schoenfelder <paulschoenfelder@gmail.com>"
+MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
 # Important!  Update this no-op ENV variable when this Dockerfile
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2019-05-22 \
-    ELIXIR_VERSION=v1.8.2
+ENV REFRESHED_AT=2019-06-26 \
+    ELIXIR_VERSION=v1.9.0
 
 WORKDIR /tmp/elixir-build
 
@@ -27,5 +27,8 @@ RUN \
     apk del --no-cache .elixir-build
 
 WORKDIR ${HOME}
+
+# Always install latest versions of Hex and Rebar
+ONBUILD RUN mix do local.hex --force, local.rebar --force
 
 CMD ["/bin/sh"]
