@@ -1,4 +1,4 @@
-FROM bitwalker/alpine-erlang:22.2.3
+FROM bitwalker/alpine-erlang:22.2.6
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
