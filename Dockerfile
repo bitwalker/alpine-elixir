@@ -7,26 +7,26 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
 ENV REFRESHED_AT=2020-04-26 \
-    ELIXIR_VERSION=v1.10.3 \
-    MIX_HOME=/opt/mix \
-    HEX_HOME=/opt/hex
+  ELIXIR_VERSION=v1.10.4 \
+  MIX_HOME=/opt/mix \
+  HEX_HOME=/opt/hex
 
 WORKDIR /tmp/elixir-build
 
 RUN \
-    apk --no-cache --update upgrade && \
-    apk add --no-cache --update --virtual .elixir-build \
-      make && \
-    apk add --no-cache --update \
-      git && \
-    git clone https://github.com/elixir-lang/elixir --depth 1 --branch $ELIXIR_VERSION && \
-    cd elixir && \
-    make && make install && \
-    mix local.hex --force && \
-    mix local.rebar --force && \
-    cd $HOME && \
-    rm -rf /tmp/elixir-build && \
-    apk del --no-cache .elixir-build
+  apk --no-cache --update upgrade && \
+  apk add --no-cache --update --virtual .elixir-build \
+  make && \
+  apk add --no-cache --update \
+  git && \
+  git clone https://github.com/elixir-lang/elixir --depth 1 --branch $ELIXIR_VERSION && \
+  cd elixir && \
+  make && make install && \
+  mix local.hex --force && \
+  mix local.rebar --force && \
+  cd $HOME && \
+  rm -rf /tmp/elixir-build && \
+  apk del --no-cache .elixir-build
 
 WORKDIR ${HOME}
 
