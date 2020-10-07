@@ -7,7 +7,7 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
 ENV REFRESHED_AT=2020-10-07 \
-    ELIXIR_VERSION=v1.10.4 \
+    ELIXIR_VERSION=v1.11.0 \
     MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex
 
