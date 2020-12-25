@@ -1,0 +1,29 @@
+name: Build/Publish Image
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Detect Changes
+      uses: trilom/file-changes-action@v1.2
+    - name: Build Image
+      if: ${{ contains(steps.file_changes.outputs.files_modified, 'Dockerfile') }}
+      run: make build
+    - name: Login
+      if: ${{ github.event_name == "push" && contains(steps.file_changes.outputs.files_modified, 'Dockerfile') }}
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Publish Image
+      if: ${{ github.event_name == "push" && contains(steps.file_changes.outputs.files_modified, 'Dockerfile') }}
+      run: make release
+      
