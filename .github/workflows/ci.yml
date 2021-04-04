@@ -4,7 +4,18 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'Makefile'
+      - 'Dockerfile'
+      - 'VERSION'
   pull_request:
+    paths:
+      - 'Makefile'
+      - 'Dockerfile'
+      - 'VERSION'
+
+env:
+  BUILDX_CACHE_DIR: /tmp/buildx
 
 jobs:
   build:
@@ -12,18 +23,48 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Detect Changes
-      uses: trilom/file-changes-action@v1.2
+
+    - name: Get Version Info
+      id: versions
+      run: |
+        elixir_version="$(cat VERSION | grep elixir | cut -d ' ' -f2)"
+        erlang_version="$(cat VERSION | grep erlang | cut -d ' ' -f2)"
+        echo "::set-output name=elixir_version::${elixir_version}"
+        echo "::set-output name=erlang_version::${erlang_version}"
+
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@v1
+
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Cache Docker Layers
+      uses: actions/cache@v2
+      id: cache
+      with:
+        path: /tmp/buildx
+        key: buildx-elixir${{ steps.versions.outputs.elixir_version }}-erlang${{ steps.versions.outputs.erlang_version }}
+        restore-keys: |
+          buildx-elixir${{ steps.versions.outputs.elixir_version }}-erlang
+          buildx-elixir${{ steps.versions.outputs.elixir_version }}-
+          buildx-elixir
+
     - name: Build Image
-      if: ${{ contains(steps.file_changes.outputs.files_modified, 'Dockerfile') }}
+      env:
+        VERSION: ${{ steps.versions.outputs.elixir_version }}
+        ERLANG_VERSION: ${{ steps.versions.outputs.erlang_version }}
       run: make build
+
     - name: Login
-      if: ${{ github.event_name == "push" && contains(steps.file_changes.outputs.files_modified, 'Dockerfile') }}
+      if: ${{ github.event_name == 'push' }}
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
     - name: Publish Image
-      if: ${{ github.event_name == "push" && contains(steps.file_changes.outputs.files_modified, 'Dockerfile') }}
+      if: ${{ github.event_name == 'push' }}
+      env:
+        VERSION: ${{ steps.versions.outputs.elixir_version }}
+        ERLANG_VERSION: ${{ steps.versions.outputs.erlang_version }}
       run: make release
-      

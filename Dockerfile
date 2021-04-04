@@ -1,4 +1,6 @@
-FROM bitwalker/alpine-erlang:23.2.7
+ARG ERLANG_VERSION
+FROM bitwalker/alpine-erlang:${ERLANG_VERSION}
+ARG ELIXIR_VERSION
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
@@ -6,31 +8,28 @@ MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 # is updated with the current date. It will force refresh of all
 # of the base images and things like `apt-get update` won't be using
 # old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2021-03-15 \
-    ELIXIR_VERSION=v1.11.3 \
+ENV REFRESHED_AT=2021-04-03 \
+    ELIXIR_VERSION=v${ELIXIR_VERSION} \
     MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex
 
 WORKDIR /tmp/elixir-build
 
 RUN \
-    apk --no-cache --update upgrade && \
-    apk add --no-cache --update --virtual .elixir-build \
+    apk add --no-cache --update-cache \
+      git \
       make && \
-    apk add --no-cache --update \
-      git && \
     git clone https://github.com/elixir-lang/elixir --depth 1 --branch $ELIXIR_VERSION && \
     cd elixir && \
     make && make install && \
     mix local.hex --force && \
     mix local.rebar --force && \
     cd $HOME && \
-    rm -rf /tmp/elixir-build && \
-    apk del --no-cache .elixir-build
+    rm -rf /tmp/elixir-build
 
 WORKDIR ${HOME}
 
 # Always install latest versions of Hex and Rebar
 ONBUILD RUN mix do local.hex --force, local.rebar --force
 
-CMD ["/bin/sh"]
+CMD ["bash"]
