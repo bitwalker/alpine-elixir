@@ -29,7 +29,7 @@ setup-buildx: ## Setup a Buildx builder
 	fi
 
 build: setup-buildx ## Build the Docker image
-	docker buildx build --output "type=image,push=false" \
+	docker buildx build --output "type=docker,push=false" \
 		--build-arg ERLANG_VERSION=$(ERLANG_VERSION) \
 		--build-arg ELIXIR_VERSION=$(VERSION) \
 		--platform linux/amd64,linux/arm64 \
