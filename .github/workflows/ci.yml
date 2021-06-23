@@ -55,6 +55,12 @@ jobs:
         ERLANG_VERSION: ${{ steps.versions.outputs.erlang_version }}
       run: make build
 
+    - name: Test Image
+      env:
+        VERSION: ${{ steps.versions.outputs.elixir_version }}
+        ERLANG_VERSION: ${{ steps.versions.outputs.erlang_version }}
+      run: make test
+
     - name: Login
       if: ${{ github.event_name == 'push' }}
       uses: docker/login-action@v1
