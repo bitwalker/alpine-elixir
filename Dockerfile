@@ -22,6 +22,7 @@ RUN \
     git clone https://github.com/elixir-lang/elixir --depth 1 --branch $ELIXIR_VERSION && \
     cd elixir && \
     make && make install && \
+    mkdir -p ${HEX_HOME} && \
     mix local.hex --force && \
     mix local.rebar --force && \
     cd $HOME && \
