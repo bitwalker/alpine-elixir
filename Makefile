@@ -46,7 +46,7 @@ build: setup-buildx ## Build the Docker image
 
 .PHONY: build-local
 build-local: setup-buildx ## Build the Docker image
-	docker buildx build --output "type=image,push=false" \
+	docker buildx build --load \
 		--build-arg ERLANG_VERSION=$(ERLANG_VERSION) \
 		--build-arg ELIXIR_VERSION=$(VERSION) \
 		--platform linux/amd64 \
