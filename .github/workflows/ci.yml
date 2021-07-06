@@ -8,11 +8,13 @@ on:
       - 'Makefile'
       - 'Dockerfile'
       - 'VERSION'
+      - '.github/workflows/ci.yml'
   pull_request:
     paths:
       - 'Makefile'
       - 'Dockerfile'
       - 'VERSION'
+      - '.github/workflows/ci.yml'
 
 env:
   BUILDX_CACHE_DIR: /tmp/buildx
@@ -49,17 +51,11 @@ jobs:
           buildx-elixir${{ steps.versions.outputs.elixir_version }}-
           buildx-elixir
 
-    - name: Build Image
+    - name: Build/Validate Image
       env:
         VERSION: ${{ steps.versions.outputs.elixir_version }}
         ERLANG_VERSION: ${{ steps.versions.outputs.erlang_version }}
-      run: make build
-
-    - name: Test Image
-      env:
-        VERSION: ${{ steps.versions.outputs.elixir_version }}
-        ERLANG_VERSION: ${{ steps.versions.outputs.erlang_version }}
-      run: make test
+      run: make validate
 
     - name: Login
       if: ${{ github.event_name == 'push' }}
