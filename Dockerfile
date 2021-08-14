@@ -4,12 +4,7 @@ ARG ELIXIR_VERSION
 
 MAINTAINER Paul Schoenfelder <paulschoenfelder@gmail.com>
 
-# Important!  Update this no-op ENV variable when this Dockerfile
-# is updated with the current date. It will force refresh of all
-# of the base images and things like `apt-get update` won't be using
-# old cached versions when the Dockerfile is built.
-ENV REFRESHED_AT=2021-04-03 \
-    ELIXIR_VERSION=v${ELIXIR_VERSION} \
+ENV ELIXIR_VERSION=v${ELIXIR_VERSION} \
     MIX_HOME=/opt/mix \
     HEX_HOME=/opt/hex
 
