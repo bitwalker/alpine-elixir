@@ -16,6 +16,7 @@ RUN \
       make && \
     git clone https://github.com/elixir-lang/elixir --depth 1 --branch $ELIXIR_VERSION && \
     cd elixir && \
+    if [ ! -d /usr/local/sbin ]; then ln -s /usr/local/bin /usr/local/sbin; fi && \
     make && make install && \
     mkdir -p ${HEX_HOME} && \
     mix local.hex --force && \
