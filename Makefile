@@ -36,7 +36,7 @@ build: setup-buildx ## Build the Docker image
 	docker buildx build --output "type=image,push=false" \
 		--build-arg ERLANG_VERSION=$(ERLANG_VERSION) \
 		--build-arg ELIXIR_VERSION=$(VERSION) \
-		--platform linux/amd64,linux/arm64 \
+		--platform linux/amd64 \
 		--cache-from "type=local,src=$(BUILDX_CACHE_DIR)" \
 		--cache-to "type=local,dest=$(BUILDX_CACHE_DIR)" \
 		-t $(IMAGE_NAME):$(VERSION) \
@@ -73,7 +73,7 @@ release: setup-buildx ## Build and release the Docker image to Docker Hub
 	docker buildx build --push \
 		--build-arg ERLANG_VERSION=$(ERLANG_VERSION) \
 		--build-arg ELIXIR_VERSION=$(VERSION) \
-		--platform linux/amd64,linux/arm64 \
+		--platform linux/amd64 \
 		--cache-from "type=local,src=$(BUILDX_CACHE_DIR)" \
 		--cache-to "type=local,dest=$(BUILDX_CACHE_DIR)" \
 		-t $(IMAGE_NAME):$(VERSION) \
